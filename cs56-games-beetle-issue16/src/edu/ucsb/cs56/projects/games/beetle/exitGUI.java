@@ -27,7 +27,6 @@ public class exitGUI extends JFrame{
 	int computerScore = 0;
 	String playerName = "";
 	String computerName = "";
-	int winner;
 
     /**
      * no-arg constructor for the exit GUI
@@ -92,10 +91,9 @@ public class exitGUI extends JFrame{
 	 * @param computerScore the score of the computer(player 2)
 	 * @param playerName the name of the player(player 1)
 	 * @param computerName the name of the computer(player 2)
-	 * @param winner int value of 0 (player 1) or 1 (player 1) representing who won the game
 	 */
 
-	public exitGUI(int playerScore, int computerScore, String playerName, String computerName, int winner){
+	public exitGUI(int playerScore, int computerScore, String playerName, String computerName){
 
 		super("Exit Menu");
 		centerPanel.setBackground(new Color(0,155,100));
@@ -103,7 +101,6 @@ public class exitGUI extends JFrame{
 		this.computerScore = computerScore;
 		this.playerName = playerName;
 		this.computerName = computerName;
-		this.winner= winner;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		playAgain = new JButton("Play Again");
 		exit = new JButton("Close Game");
@@ -117,7 +114,7 @@ public class exitGUI extends JFrame{
 
 		JPanel rPanel = new JPanel();
 		rPanel.setBackground(new Color(0,155,100));
-		if (this.winner == 0) {
+		if (this.playerScore > this.computerScore) {
 			JLabel winnerLabel = new JLabel("Congrats to " + this.playerName + " for winning the game!");
 			rPanel.add(winnerLabel);
 		} else {

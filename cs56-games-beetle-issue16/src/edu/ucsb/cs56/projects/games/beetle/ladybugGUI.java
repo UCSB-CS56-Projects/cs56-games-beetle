@@ -588,8 +588,7 @@ public class ladybugGUI {
                 text.append(player.getName() + " WINS!!\n\n");
 		// reset APlayer objects
                 game.increaseScore(0);
-                int winner = 0;
-                exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1), player.getName(), computer.getName(), winner);
+                exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1), player.getName(), computer.getName());
                 exit.setVisible(true);
 		frame.setVisible(false);
                 player.reset();
@@ -631,8 +630,7 @@ public class ladybugGUI {
                 text.append(computer.getName() + " WINS!!\n\n");
 		// reset APlayer objects
                 game.increaseScore(1);
-                int winner = 1;
-                exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1), player.getName(), computer.getName(), winner);
+                exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1), player.getName(), computer.getName());
                 exit.setVisible(true);
 		frame.setVisible(false);
                 player.reset();

@@ -26,25 +26,26 @@ import javax.swing.*;
  * @author Justin Nguyen
  * @author Alexander Kang
  */
-public class beetleGUI {
-    JFrame frame = new JFrame("Beetle Dice Rolling Game");
+
+
+public class antGUI {
+    JFrame frame = new JFrame("Ant Dice Rolling Game");
     JPanel thePanel = new JPanel(new GridBagLayout());
-    JLabel title = new JLabel("Beetle Dice Rolling Game!");
-    JLabel pNeed = new JLabel("BPlayer still needs");
-    JLabel body = new JLabel("Body: ");
+    JLabel title = new JLabel("Ant Dice Rolling Game!");
+    JLabel pNeed = new JLabel("APlayer still needs");
+    JLabel thorax = new JLabel("Thorax: ");
     JLabel head = new JLabel("Head: ");
     JLabel legs = new JLabel("Legs: ");
     JLabel eyes = new JLabel("Eyes: ");
     JLabel antennas = new JLabel("Antennas: ");
     JLabel cNeed = new JLabel("Computer still needs");
-    JLabel tail = new JLabel("Tail: ");
-    JLabel cBody = new JLabel("Body: ");
+    JLabel abdomen = new JLabel("Abdomen: ");
+    JLabel cThorax = new JLabel("Thorax: ");
     JLabel cHead = new JLabel("Head: ");
     JLabel cLegs = new JLabel("Legs: ");
     JLabel cEyes = new JLabel("Eyes: ");
     JLabel cAntennas = new JLabel("Antennas: ");
-    JLabel cTail = new JLabel("Tail: ");
-    // counter text fields
+    JLabel cAbdomen = new JLabel("Abdomen: ");
     JTextField pB = new JTextField("1",10);
     JTextField pH = new JTextField("1",10);
     JTextField pL = new JTextField("6",10);
@@ -57,7 +58,6 @@ public class beetleGUI {
     JTextField cE = new JTextField("2",10);
     JTextField cA = new JTextField("2",10);
     JTextField cT = new JTextField("1",10);
-    // counters
     private int pBN = 1; 
     private int pHN = 1; 
     private int pLN = 6; 
@@ -70,58 +70,58 @@ public class beetleGUI {
     private int cEN = 2; 
     private int cAN = 2; 
     private int cTN = 1; 
-    JLabel info1 = new JLabel("1: Body    2: Head       3: Legs");  
-    JLabel info2 = new JLabel("4: Eyes    5: Antennas   6: Tail");
+    JLabel info1 = new JLabel("1: Thorax    2: Head       3: Legs");  
+    JLabel info2 = new JLabel("4: Eyes    5: Antennas   6: Abdomen");
     JButton roll = new JButton("Roll");
     JButton exit = new JButton("Exit");
     JTextArea text = new JTextArea(20,20);
     JScrollPane scroll = new JScrollPane(text);
-    BPlayer player = new BPlayer();
-    BPlayer computer = new BPlayer();
+    APlayer player = new APlayer();
+    APlayer computer = new APlayer();
     Game game = new Game();
     
     //add images
-    ImageIcon beetlePic;
+    ImageIcon antPic;
     JLabel picLabel = new JLabel();
-
+    //labels to track score
     JLabel playerScore = new JLabel("Player has won: ");
     JLabel computerScore = new JLabel("Computer has won: ");
-
-    /**
-       no-arg constructor for the beetle GUI
+    /** no-arg constructor for antGUI
+     
      */
-    public beetleGUI(){
+    public antGUI(){
 
     }
-    
+
     /**
-     * Overloaded constructor with score paremeters
+     * Overloaded constructor with score parameters
      * @param playerScore the score of the player(player 1)
      * @param computerScore the score of the computer(player 2)
      */
-    public beetleGUI(int playerScore, int computerScore){
-	game.setScore(0, playerScore);
-	game.setScore(1, computerScore);
+    public antGUI(int playerScore, int computerScore){
+        game.setScore(0, playerScore);
+        game.setScore(1, computerScore);
     }
 
-
-    public beetleGUI(int playerScore, int computerScore, String playerName, String computerName){
+    public antGUI(int playerScore, int computerScore, String playerName, String computerName){
         game.setScore(0, playerScore);
         game.setScore(1, computerScore);
         player.setName(playerName);
         computer.setName(computerName);
     }
     /**
-     * Sets up beetle GUI and launches Single/Multi Player window
+     * Sets up the ant GUI window and launches the Single/MultiPlayer window
      */
+    
     public void setUpHomeScreen(){
-
-    beetlePic = new ImageIcon(new ImageIcon("pictures/beetle.jpg").getImage().getScaledInstance(200, 150, Image.SCALE_DEFAULT));
-    picLabel.setIcon(beetlePic);    
-
 	// Option for Single Player or Two Players
-	frame.getContentPane().setBackground(new Color(204, 153, 255));
-	
+       
+    antPic = new ImageIcon(new ImageIcon("pictures/ant.jpg").getImage().getScaledInstance(200, 150, Image.SCALE_DEFAULT));
+    picLabel.setIcon(antPic);       
+
+
+        
+	frame.getContentPane().setBackground(new Color(0, 153, 0));
 	Object[] options = {"Single Player",
 			    "Two Players"};
 	int n = JOptionPane.showOptionDialog(frame,
@@ -133,7 +133,7 @@ public class beetleGUI {
 					     options,  //the titles of buttons
 					     options[0]); //default button title
 
-	// if Single Player, prompt for Player 1 name & automatically set Player 2 to "Computer"
+	// if Single Player, prompt for Player 1 name & automaticlaly set Player 2 to "Computer"
 	if(n == 0) {
 	    player.setName( (String)JOptionPane.showInputDialog(
 								frame,
@@ -170,22 +170,20 @@ public class beetleGUI {
 	// set player needs JLable to correct names
 	pNeed = new JLabel(player.getName() + " still needs");
 	cNeed = new JLabel(computer.getName() + " still needs");
-    playerScore = new JLabel(player.getName() + " has won: " + game.getScore(0) + " game(s)" );
-    computerScore = new JLabel("    " + computer.getName() + " has won: " + game.getScore(1) + " game(s)");
-
 
         text.setEditable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-
-	// add title to frame
+    playerScore = new JLabel(player.getName() + " has won: " + game.getScore(0) + " game(s)" );
+	computerScore = new JLabel("    " + computer.getName() + " has won: " + game.getScore(1) + " game(s)");
+    // add title to frame
         gc.gridwidth=2;
         gc.gridx=2;
         gc.gridy=0;
         frame.add(title, gc);
 
-	// add text scroll panel to frame
+	// add text scroll panel to frame 
         gc.gridy=1;
         gc.gridheight=8;
         frame.add(scroll, gc);
@@ -196,17 +194,16 @@ public class beetleGUI {
         gc.gridheight=1;
 	gc.gridx=0;
 	gc.gridy=1;
-	frame.add(pNeed, gc);
+    frame.add(pNeed, gc);
 
-	// format and add body label
+	// format and add thorax label
         gc.gridx=0;
         gc.gridy=2;
-	frame.add(body, gc);
+	frame.add(thorax, gc);
         gc.gridx=1;
 	pB.setEditable(false);
-	// add body counter
+	// add thorax counter
 	frame.add(pB, gc);
-
 	// format and add head label
         gc.gridx=0;
         gc.gridy=3;
@@ -243,32 +240,33 @@ public class beetleGUI {
 	// add antennas counter
         frame.add(pA, gc);
 
-	// format and add tail label
+	// format and add abdomen label
         gc.gridx=0;
         gc.gridy=7;
-        frame.add(tail, gc);
+        frame.add(abdomen, gc);
         gc.gridx=1;
 	pT.setEditable(false);
-	// add tail counter
+	// add abdomen counter
         frame.add(pT, gc);
-        
+
+    //format and add player 1 score
         gc.gridx = 0;
         gc.gridy = 8;
         frame.add(playerScore, gc);
-
+        
         //computer score
 	// add computer needs label
 	gc.gridx=4;
 	gc.gridy=1;
 	frame.add(cNeed, gc);
 
-	// format and add body label
+	// format and add thorax label
 	gc.gridx=4;
         gc.gridy=2;
-	frame.add(cBody, gc);
+	frame.add(cThorax, gc);
         gc.gridx=5;
 	cB.setEditable(false);
-	// add body counter
+	// add thorax counter
         frame.add(cB, gc);
 
 	// format and add head label
@@ -307,40 +305,37 @@ public class beetleGUI {
 	// add antennas counter
         frame.add(cA, gc);
 
-	// format and add tail label
+	// format and add abdomen label
         gc.gridx=4;
         gc.gridy=7;
-        frame.add(cTail, gc);
+        frame.add(cAbdomen, gc);
         gc.gridx=5;
 	cT.setEditable(false);
-	// add tail counter
+	// add abdomen counter
         frame.add(cT, gc);
-   
     //add computer score
         gc.gridx = 4;
         gc.gridy = 8;
         frame.add(computerScore, gc);
-	
-    // add Roll button
+        
+	// add Roll button
         gc.gridx=2;
         gc.gridy=9;
         roll.addActionListener(new RollListener());
         frame.add(roll, gc);
-	
+
 	// add Exit button
         gc.gridx=3;
         exit.addActionListener(new ExitListener());
         frame.add(exit, gc);
 
-	// format and add information on what roll gets which body party
+	// format and add information on what roll gets which body part
         gc.gridwidth=2;
         gc.gridx=2;
         gc.gridy=10;
         frame.add(info1, gc);
         gc.gridy=11;
         frame.add(info2, gc);
-
-        //frame.getContentPane().add(thePanel);
 
         //add the picture
         //Why 4.
@@ -349,7 +344,7 @@ public class beetleGUI {
         gc.gridx = 1;
         frame.add(picLabel,gc);
 
-        
+        //frame.getContentPane().add(thePanel);
         frame.pack();
         frame.setSize(900,600);
         frame.setVisible(true);
@@ -358,25 +353,25 @@ public class beetleGUI {
     }
 
     public void setUpHomeScreenAgain(){
-
-        beetlePic = new ImageIcon(new ImageIcon("pictures/beetle.jpg").getImage().getScaledInstance(200, 150, Image.SCALE_DEFAULT));
-        picLabel.setIcon(beetlePic);
-
         // Option for Single Player or Two Players
-        frame.getContentPane().setBackground(new Color(204, 153, 255));
+
+        antPic = new ImageIcon(new ImageIcon("pictures/ant.jpg").getImage().getScaledInstance(200, 150, Image.SCALE_DEFAULT));
+        picLabel.setIcon(antPic);
+
+
+
+        frame.getContentPane().setBackground(new Color(0, 153, 0));
 
         // set player needs JLable to correct names
         pNeed = new JLabel(player.getName() + " still needs");
         cNeed = new JLabel(computer.getName() + " still needs");
-        playerScore = new JLabel(player.getName() + " has won: " + game.getScore(0) + " game(s)" );
-        computerScore = new JLabel("    " + computer.getName() + " has won: " + game.getScore(1) + " game(s)");
-
 
         text.setEditable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-
+        playerScore = new JLabel(player.getName() + " has won: " + game.getScore(0) + " game(s)" );
+        computerScore = new JLabel("    " + computer.getName() + " has won: " + game.getScore(1) + " game(s)");
         // add title to frame
         gc.gridwidth=2;
         gc.gridx=2;
@@ -396,15 +391,14 @@ public class beetleGUI {
         gc.gridy=1;
         frame.add(pNeed, gc);
 
-        // format and add body label
+        // format and add thorax label
         gc.gridx=0;
         gc.gridy=2;
-        frame.add(body, gc);
+        frame.add(thorax, gc);
         gc.gridx=1;
         pB.setEditable(false);
-        // add body counter
+        // add thorax counter
         frame.add(pB, gc);
-
         // format and add head label
         gc.gridx=0;
         gc.gridy=3;
@@ -441,15 +435,16 @@ public class beetleGUI {
         // add antennas counter
         frame.add(pA, gc);
 
-        // format and add tail label
+        // format and add abdomen label
         gc.gridx=0;
         gc.gridy=7;
-        frame.add(tail, gc);
+        frame.add(abdomen, gc);
         gc.gridx=1;
         pT.setEditable(false);
-        // add tail counter
+        // add abdomen counter
         frame.add(pT, gc);
 
+        //format and add player 1 score
         gc.gridx = 0;
         gc.gridy = 8;
         frame.add(playerScore, gc);
@@ -460,13 +455,13 @@ public class beetleGUI {
         gc.gridy=1;
         frame.add(cNeed, gc);
 
-        // format and add body label
+        // format and add thorax label
         gc.gridx=4;
         gc.gridy=2;
-        frame.add(cBody, gc);
+        frame.add(cThorax, gc);
         gc.gridx=5;
         cB.setEditable(false);
-        // add body counter
+        // add thorax counter
         frame.add(cB, gc);
 
         // format and add head label
@@ -505,15 +500,14 @@ public class beetleGUI {
         // add antennas counter
         frame.add(cA, gc);
 
-        // format and add tail label
+        // format and add abdomen label
         gc.gridx=4;
         gc.gridy=7;
-        frame.add(cTail, gc);
+        frame.add(cAbdomen, gc);
         gc.gridx=5;
         cT.setEditable(false);
-        // add tail counter
+        // add abdomen counter
         frame.add(cT, gc);
-
         //add computer score
         gc.gridx = 4;
         gc.gridy = 8;
@@ -530,15 +524,13 @@ public class beetleGUI {
         exit.addActionListener(new ExitListener());
         frame.add(exit, gc);
 
-        // format and add information on what roll gets which body party
+        // format and add information on what roll gets which body part
         gc.gridwidth=2;
         gc.gridx=2;
         gc.gridy=10;
         frame.add(info1, gc);
         gc.gridy=11;
         frame.add(info2, gc);
-
-        //frame.getContentPane().add(thePanel);
 
         //add the picture
         //Why 4.
@@ -547,15 +539,16 @@ public class beetleGUI {
         gc.gridx = 1;
         frame.add(picLabel,gc);
 
-
+        //frame.getContentPane().add(thePanel);
         frame.pack();
         frame.setSize(900,600);
         frame.setVisible(true);
 
 
     }
+
     /**
-     * Action Listener for rolling in beetle GUI window
+     * Action Listener for rolling on the ant GUI window
      */
     class RollListener implements ActionListener{
         public void actionPerformed(ActionEvent event){
@@ -563,39 +556,38 @@ public class beetleGUI {
             player.roll();
             computer.roll();
             text.append(player.getName() + " rolled: " + player.getRoll() + "\n");
-            text.append(player.getName() + " " + player.addPart());
+            text.append(player.getName()  + " " + player.addPart());
             text.append(computer.getName() + " rolled: " + computer.getRoll() + "\n");
-            text.append(computer.getName() + " " + computer.addPart());
+            text.append(computer.getName() + " "+ computer.addPart());
             text.append("\n");
-
+	    
 	    // set counter text on GUI
-            pB.setText("" +(pBN - player.getBody()));
+            pB.setText("" +(pBN - player.getThorax()));
             pH.setText("" +(pHN - player.getHead()));
             pL.setText("" +(pLN - player.getLegs()));
             pE.setText("" +(pEN - player.getEyes()));
             pA.setText("" +(pAN - player.getAntenna()));
-            pT.setText("" +(pTN - player.getTail()));
-            cB.setText("" +(cBN - computer.getBody()));
+            pT.setText("" +(pTN - player.getAbdomen()));
+            cB.setText("" +(cBN - computer.getThorax()));
             cH.setText("" +(cHN - computer.getHead()));
             cL.setText("" +(cLN - computer.getLegs()));
             cE.setText("" +(cEN - computer.getEyes()));
             cA.setText("" +(cAN - computer.getAntenna()));
-            cT.setText("" +(cTN - computer.getTail()));
-          
+            cT.setText("" +(cTN - computer.getAbdomen()));
+            
 	    // message and reset if Player 1 wins
             if(player.hasWon()){
-                text.append(player.getName() + " WINS!!\n\n");
-		// reset BPlayer objects
-                game.increaseScore(0);
-                int winner = 0;
-                exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1),player.getName(), computer.getName(), winner);
-                exit.setVisible(true);
-		frame.setVisible(false);
-                player.reset();
-                computer.reset();
-                //update player score
-                 playerScore.setText(player.getName() + " has won: " + game.getScore(0) + " game(s)" );
-
+		//frame.setVisible(false);
+	       game.increaseScore(0);
+	       exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1), player.getName(), computer.getName());
+	       exit.setVisible(true);
+	       frame.setVisible(false);
+	       
+	       text.append(player.getName() + " WINS!!\n\n");
+	       // reset APlayer objects
+	       player.reset();
+	       computer.reset();
+	       playerScore.setText(player.getName() + " has won: " + game.getScore(0) + " game(s)" );
 		// reset counter text fields
                 pB.setText("1");
                 pH.setText("1");
@@ -624,22 +616,21 @@ public class beetleGUI {
                 cAN = 2;
                 cTN = 1;    
 	    }	
+	    
 	    // message and reset if Player 2 wins
             if(computer.hasWon()){
-                text.append(computer.getName() + " WINS!!\n\n");
-		// reset BPlayer objects
+
+                //frame.setVisible(false); 
                 game.increaseScore(1);
-                int winner = 1;
-                exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1), player.getName(), computer.getName(), winner);
+                exitGUI exit = new exitGUI(game.getScore(0), game.getScore(1), player.getName(), computer.getName());
                 exit.setVisible(true);
 		frame.setVisible(false);
+		
+                text.append(computer.getName() + " WINS!!\n\n");
+		// reset APlayer objects
                 player.reset();
                 computer.reset();
-
-                //update computer score
-                 computerScore.setText(computer.getName() + " has won: " + game.getScore(1) + " game(s)" );
-
-
+		        computerScore.setText("    " + computer.getName() + " has won: " + game.getScore(1) + " game(s)");
 		// reset counter text fields
                 pB.setText("1");
                 pH.setText("1");
@@ -673,7 +664,7 @@ public class beetleGUI {
     }//end RollListener
 
     /**
-     * Action Listener to exit beetle GUI window
+     * Action Listener for exiting the ant GUi window
      */
     class ExitListener implements ActionListener{
 	public void actionPerformed(ActionEvent event){
