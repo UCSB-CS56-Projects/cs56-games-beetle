@@ -38,6 +38,8 @@ public class startGUI {
     JButton exit = new JButton("Exit");
     private int playerScore=0;
     private int computerScore=0;
+	private String playerName="";
+	private String computerName="";
 
     public startGUI(){
 
@@ -50,6 +52,13 @@ public class startGUI {
     	this.playerScore = playerScore;
     	this.computerScore = computerScore;
     }
+
+	public startGUI(int playerScore, int computerScore, String playerName, String computerName){
+		this.playerScore = playerScore;
+		this.computerScore = computerScore;
+		this.playerName = playerName;
+		this.computerName = computerName;
+	}
 
     /**
      * Launches the start GUI window which includes buttons to choose the level and to exit the game
@@ -107,9 +116,9 @@ public class startGUI {
     class AntListener implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 	   if(startGUI.this.playerScore > 0 || startGUI.this.computerScore > 0){
-	   	antGUI agui = new antGUI(startGUI.this.playerScore, startGUI.this.computerScore);
-		agui.setUpHomeScreen();
-		frame.setVisible(false);
+		   antGUI agui = new antGUI(startGUI.this.playerScore, startGUI.this.computerScore, startGUI.this.playerName, startGUI.this.computerName);
+		   agui.setUpHomeScreenAgain();
+		   frame.setVisible(false);
 	   }
 	   else{
 	       antGUI agui = new antGUI();
@@ -127,14 +136,14 @@ public class startGUI {
     class BeetleListener implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 	    if(startGUI.this.playerScore > 0 || startGUI.this.computerScore > 0){
-	   	beetleGUI bgui = new beetleGUI(startGUI.this.playerScore, startGUI.this.computerScore);
-		bgui.setUpHomeScreen();
-		frame.setVisible(false);
+	   		beetleGUI bgui = new beetleGUI(startGUI.this.playerScore, startGUI.this.computerScore, startGUI.this.playerName, startGUI.this.computerName);
+			bgui.setUpHomeScreenAgain();
+			frame.setVisible(false);
 	    }
 	    else{
-		beetleGUI bgui = new beetleGUI();
-		bgui.setUpHomeScreen();
-		frame.setVisible(false);
+			beetleGUI bgui = new beetleGUI();
+			bgui.setUpHomeScreen();
+			frame.setVisible(false);
 	    }
 	}
     }//end BeetleListener
@@ -146,14 +155,14 @@ public class startGUI {
     class PersonListener implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 	    if(startGUI.this.playerScore > 0 || startGUI.this.computerScore > 0){
-	   	personGUI pgui = new personGUI(startGUI.this.playerScore, startGUI.this.computerScore);
-		pgui.setUpHomeScreen();
-		frame.setVisible(false);
+	   		personGUI pgui = new personGUI(startGUI.this.playerScore, startGUI.this.computerScore, startGUI.this.playerName, startGUI.this.computerName);
+			pgui.setUpHomeScreenAgain();
+			frame.setVisible(false);
 	    }
 	    else{
-		personGUI pgui = new personGUI();
-		pgui.setUpHomeScreen();
-		frame.setVisible(false);
+			personGUI pgui = new personGUI();
+			pgui.setUpHomeScreen();
+			frame.setVisible(false);
 	    }
 	}
     }//end PersonListener
@@ -165,14 +174,14 @@ public class startGUI {
     class LadybugListener implements ActionListener {
 	public void actionPerformed(ActionEvent event) {
 	    if(startGUI.this.playerScore > 0 || startGUI.this.computerScore > 0){
-	   	ladybugGUI lbgui = new ladybugGUI(startGUI.this.playerScore, startGUI.this.computerScore);
-		lbgui.setUpHomeScreen();
-		frame.setVisible(false);
+	   		ladybugGUI lbgui = new ladybugGUI(startGUI.this.playerScore, startGUI.this.computerScore, startGUI.this.playerName, startGUI.this.computerName);
+			lbgui.setUpHomeScreenAgain();
+			frame.setVisible(false);
 	    }
 	    else{
-		ladybugGUI lbgui = new ladybugGUI();
-		lbgui.setUpHomeScreen();
-		frame.setVisible(false);
+			ladybugGUI lbgui = new ladybugGUI();
+			lbgui.setUpHomeScreen();
+			frame.setVisible(false);
 	    }
 	}
     }//end LadybugListener
@@ -182,8 +191,8 @@ public class startGUI {
      * Closes the window and ends the game process
      */
     class ExitListener implements ActionListener{
-	public void actionPerformed(ActionEvent event){
-		System.exit(0);
+		public void actionPerformed(ActionEvent event){
+			System.exit(0);
 
 	}
     }//end ExitListener
