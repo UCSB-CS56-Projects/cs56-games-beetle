@@ -1,5 +1,5 @@
 <project default="compile">
-  <!-- build.xml for Choice Points 3, W12, CS56 name: Dennis Huynh and Aki Stankoski-->
+  <!-- build.xml for F16 Issue #23 -->
   
     <property environment="env"/> <!-- load the environment variables --> 
     <property name="webRoot"     value="${env.HOME}/public_html/"/>
@@ -7,12 +7,12 @@
     <property name="course"      value="CS56" />
     <property name="quarter"     value="F16" />
     <property name="issueNum"    value="0000705" />
-    <property name="mainClass"   value="edu.ucsb.cs56.projects.games.Main" />
+    <property name="mainClass"   value="edu.ucsb.cs56.projects.games.beetle.BeetleGame" />
     <property name="projectName" value="cs56/cs56-games-beetle"/>
     <property name="projectPath" value="${course}/${quarter}/issues/${issueNum}"/>
-    <property name="javadocDest" value="${webRoot}/${projectName}/javadoc"/>
-    <!--"~/public_html/cs56/cs56-games-beetle/javadoc"/> -->
-    <property name="javadocURL"  value="${webBaseURL}/${projectName}/javadoc"/>
+    <property name="javadoc_absolute_path" location = "javadoc"/>
+    <property name="public_javadoc_absolute_path" location="../cs56-games-beetle-javadoc/" />
+    
   
     <target name="compile" description="compile the program">
         <mkdir dir="build" /> <!--/edu/ucsb/cs56/projects/games" /> -->
@@ -37,27 +37,37 @@
         <delete dir="temp"      quiet="true" />
     </target>
 
+
+    
+    
+
     <target name="javadoc" depends="compile">
         <delete dir="javadoc" quiet="true" />
         <javadoc destdir="javadoc" author="true" version="true" use="true" >
             <fileset dir="src" includes="**/*.java"/>
             <classpath>
-                <pathelement location="lib/junit-4.8.2.jar"/>
-            </classpath>
+              <pathelement location="lib/junit-4.8.2.jar"/>
+	    </classpath>
+	    <link href ="https://docs.oracle.com/javase/8/docs/api/" />
+          
         </javadoc>
+	<echo>
+	  javadoc written to file://${javadoc_absolute_path}/index.html
+	  copying to ${public_javadoc_absolute_path}/index.html
+	</echo>
         <!-- delete the old javadoc -->
-        <delete quiet="true" dir="${javadocDest}" />
-        <!-- copy everything you just made to the javadoc destination, and then make it readable -->   
-        <copy todir="${javadocDest}" >
-            <fileset dir="javadoc"/>
+	<delete quiet="true">
+	  <fileset dir="${public_javadoc_absolute_path}" />
+	</delete>
+        <!-- copy everything you just made to the javadoc destination -->   
+	<mkdir dir="${public_javadoc_absolute_path}" />      
+	<copy todir="${public_javadoc_absolute_path}" >
+            <fileset dir="javadoc" />
         </copy>
-        <!-- Note: this only does the chmod command on the
-        javadoc subdirectory and its contents.  You MIGHT have to
-        MANUALLY do the chmod on the parent directories.  However,
-        you should only need to do that once. -->
-        <chmod dir="${javadocDest}" perm="755"  type="dir" includes="**" />
-        <chmod dir="${javadocDest}" perm="755"  type="file" includes="**/*" />
-        <echo>Javadoc deployed to ${javadocURL}</echo>
+        <echo>
+	  copied to ${public_javadoc_absolute_path}/index.html
+	  ** don't forget to git commit to gh pages in that directory! **
+	</echo>
 
     </target>
 

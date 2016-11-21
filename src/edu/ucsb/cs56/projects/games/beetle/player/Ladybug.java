@@ -1,5 +1,18 @@
 package edu.ucsb.cs56.projects.games.beetle.player;
 
+/** 
+   * The ladybug class extends Player for the game.
+   * @version Fall 2016, CS56, UCSB
+   * @author Yuanqi Li
+   * @author Samarth Goyal  
+   *
+   * @version Previous quarters
+   * @author Dennis
+   * @author Kevin Jih
+   * @author Justin Nguyen
+   * @author Alex Kang
+*/
+
 public class Ladybug extends Player{
 	public Ladybug(String name) {
 		this.name = name;

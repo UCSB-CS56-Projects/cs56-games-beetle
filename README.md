@@ -5,6 +5,11 @@
 * W16 READY Hanna
 * F16 Yuanqi Samarth
 
+
+## Testing the Text-based game
+To run the text-based game, you can't use ant at the command line. Instead you have to cd into the build directory and then use the command "java edu.ucsb.cs56.projects.games.beetle.BeetleGame -t".
+
+
 ## Project Description
 
 This is a dice rolling game in which the user can choose between four levels: Beetle, Ant, Person, and Ladybug. 
