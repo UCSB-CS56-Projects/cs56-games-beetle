@@ -6,6 +6,16 @@
 * F16 Yuanqi Samarth
 
 
+
+## F16 Final Remarks
+
+When the game is launched, there is a menu giving the option of which game mode the user wants to choose. After the user selects which game mode they want (Ant, Beetle, Ladybug, or Person) a prompt displays them asking if they want to play with 1 Player or 2. Then it makes them enter in their name(s), and the actual game GUI displays. In this GUI the user(s) can play the game, rolling the die until one of them wins. After they can choose to replay the game or to quit. 
+
+The user can also select to run the text-based version of game by cd-ing into the build directory and then use the command "java edu.ucsb.cs56.projects.games.beetle.BeetleGame -t". In this game mode, they do the exact same thing as the normal version, except everything is text-based without a GUI. 
+
+The way the code is set up, nothing needs to be refactored as we took care of that. The entry point to the game is the `BeetleGame` class. `GuiBased` and `TextBased` are the two views of the game using the MVC design pattern. All of the game classes such as `Ant` and `Beetle` extend `Player` so if you want to create more game modes, all you have to do is create new classes extending `Player`.
+
+
 ## Testing the Text-based game
 To run the text-based game, you can't use ant at the command line. Instead you have to cd into the build directory and then use the command "java edu.ucsb.cs56.projects.games.beetle.BeetleGame -t".
 
