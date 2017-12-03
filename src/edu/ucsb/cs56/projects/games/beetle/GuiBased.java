@@ -39,26 +39,69 @@ public class GuiBased {
         JFrame frame = new JFrame("The Beetle Game");
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gc = new GridBagConstraints();
-
+	gc.gridwidth = 2;
         JButton ant = new JButton("Ant");
+	ant.setFont(new Font("Arial", Font.PLAIN, 20));
         JButton beetle = new JButton("Beetle");
+	beetle.setFont(new Font("Arial", Font.PLAIN, 20));
         JButton ladybug = new JButton("Ladybug");
+	ladybug.setFont(new Font("Arial", Font.PLAIN, 20));
         JButton person = new JButton("Person");
+	person.setFont(new Font("Arial", Font.PLAIN, 20));
         JButton exit = new JButton("Exit");
+	exit.setFont(new Font("Arial", Font.PLAIN, 20));
 
+	JLabel picLabel1 = new JLabel();
+        JLabel picLabel2 = new JLabel();
+        JLabel picLabel3 = new JLabel();
+        JLabel picLabel4 = new JLabel();
+	picLabel1.setIcon(new ImageIcon(new ImageIcon("pictures/ant.jpg").getImage().getScaledInstance(100,75, Image.SCALE_DEFAULT)));
+	picLabel2.setIcon(new ImageIcon(new ImageIcon("pictures/beetle.png").getImage().getScaledInstance(100,75, Image.SCALE_DEFAULT)));
+	picLabel3.setIcon(new ImageIcon(new ImageIcon("pictures/human.png").getImage().getScaledInstance(100,75, Image.SCALE_DEFAULT)));
+	picLabel4.setIcon(new ImageIcon(new ImageIcon("pictures/ladybug.jpg").getImage().getScaledInstance(100,75, Image.SCALE_DEFAULT)));
+	picLabel1.setVisible(true);
+	picLabel2.setVisible(true);
+	picLabel3.setVisible(true);
+	picLabel4.setVisible(true);
+
+	
         ant.addActionListener(e -> { game.type = 0; choosePlayers(frame); });
         beetle.addActionListener(e -> { game.type = 1; choosePlayers(frame); });
         ladybug.addActionListener(e -> { game.type = 2; choosePlayers(frame); });
         person.addActionListener(e -> { game.type = 3; choosePlayers(frame); });
         exit.addActionListener(e -> System.exit(0));
 
-        gc.gridy = 0; panel.add(new JLabel("Welcome to the Beetle Game!"), gc);
-        gc.gridy = 1; panel.add(ant, gc);
+	JLabel welcome_label = new JLabel("Welcome to the Beetle Game!");
+	welcome_label.setFont(new Font("Serif", Font.PLAIN, 30));
+        gc.gridx = 1; gc.gridy = 0; panel.add(welcome_label, gc);
+	gc.gridy = 1; panel.add(ant, gc);
         gc.gridy = 2; panel.add(beetle, gc);
         gc.gridy = 3; panel.add(person, gc);
         gc.gridy = 4; panel.add(ladybug, gc);
+	gc.insets = new Insets(5,0,0,0);
         gc.gridy = 5; panel.add(exit, gc);
-
+	gc.insets = new Insets(0,40,0,0);
+	JPanel pic2panel = new JPanel();
+	pic2panel.setBackground(new Color(0,0,0));
+	pic2panel.add(picLabel2);
+	JPanel pic4panel = new JPanel();
+        pic4panel.setBackground(new Color(0,0,255));
+	pic4panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        pic4panel.add(picLabel4);
+	gc.gridx = 0; gc.gridy = 2; panel.add(pic2panel, gc);
+	gc.gridx = 0; gc.gridy = 4; panel.add(pic4panel, gc);
+	gc.insets = new Insets(10,250,0,0);
+	JPanel pic1panel = new JPanel();
+        pic1panel.setBackground(new Color(153,51,255));
+	pic1panel.setBorder(BorderFactory.createLineBorder(Color.black));
+        pic1panel.add(picLabel1);
+	JPanel pic3panel = new JPanel();
+        pic3panel.setBackground(new Color(255,153,51));
+	pic3panel.setBorder(BorderFactory.createLineBorder(Color.black, 4));
+        pic3panel.add(picLabel3);
+	gc.gridx = 2; gc.gridy = 1; gc.weightx = 1; panel.add(pic1panel, gc);
+	gc.gridx = 2; gc.gridy = 3; gc.weightx = 1; panel.add(pic3panel, gc);
+	
         frame.getContentPane().add(panel, BorderLayout.CENTER);
         panel.setBackground(new Color(0,155,100));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
