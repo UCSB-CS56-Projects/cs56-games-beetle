@@ -115,8 +115,7 @@ public class GuiBased {
     * Choose number of players.
     */
     public void choosePlayers(JFrame frame) {
-
-        Object[] options = {"Single Player", "Two Players"};
+	Object[] options = {"Single Player", "Two Players"};
         game.numPlayer = JOptionPane.showOptionDialog(
                 frame, "Make your decision!", "Make your decision!",
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
@@ -127,14 +126,19 @@ public class GuiBased {
                 frame, "Enter Player 1's name", "Player 1",
                 JOptionPane.PLAIN_MESSAGE, null, null, "Player 1"
         );
-
-        if (game.numPlayer == 2)
+	if (game.p1Name == null) 
+	    return; 
+        if (game.numPlayer == 2) {
+	    
             game.p2Name = (String)JOptionPane.showInputDialog(
                     frame, "Enter Player 2's name", "Player 2",
                     JOptionPane.PLAIN_MESSAGE, null, null, "Player 2"  
             );
-
-        frame.setVisible(false);
+	    if (game.p2Name == null) 
+		return; 
+	}
+	
+	frame.setVisible(false);
         mainFrame();
     }
 
@@ -148,7 +152,7 @@ public class GuiBased {
         JFrame frame = new JFrame();  
 	ImageIcon[] picture = new ImageIcon[10];  
 
-	JLabel picLabel0= new JLabel();
+	JLabel picLabel0 = new JLabel();
 	JLabel picLabel1 = new JLabel();
 	JLabel picLabel2 = new JLabel();
 	JLabel picLabel3 = new JLabel();
@@ -159,7 +163,6 @@ public class GuiBased {
 	GridBagConstraints gc = new GridBagConstraints();
         gc.gridwidth = 2;
 	
-	//this is God awful... fix 
 	switch (game.type) {
         case 0: //CompoundIcon????
             game.p1 = new Ant(game.p1Name);
@@ -207,7 +210,7 @@ public class GuiBased {
 	    break; 
 	}
 
-	//initialize JLabels w/ ImageIcon obj
+	//initialize JLabvels w/ ImageIcon obj
 	picLabel0.setIcon(picture[0]); //for loop????                                                                                                                 
 	picLabel1.setIcon(picture[1]);
 	picLabel2.setIcon(picture[2]);
@@ -297,7 +300,7 @@ public class GuiBased {
         JButton roll = new JButton("Roll");
 	JButton home = new JButton("Home");
 	JButton exit = new JButton("Exit");
-        JLabel info = new JLabel();
+	JButton instructions  = new JButton("Instructions");
 
         roll.addActionListener(e -> {
             text.append(game.p1.addPart() + "\n");
@@ -418,31 +421,93 @@ public class GuiBased {
 	});
 
         exit.addActionListener(e -> System.exit(0));
+	
+	//instructions button
+	instructions.addActionListener(e -> {
+		JFrame i_frame = new JFrame();
+		ImageIcon[] dice_pictures = new ImageIcon[10];
+		dice_pictures[0] = new ImageIcon(new ImageIcon("pictures/pictures/dice/Dice0.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT)); 
+		dice_pictures[1] = new ImageIcon(new ImageIcon("pictures/pictures/dice/Dice1.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT));
+		dice_pictures[2] = new ImageIcon(new ImageIcon("pictures/pictures/dice/Dice2.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT));
+		dice_pictures[3] = new ImageIcon(new ImageIcon("pictures/pictures/dice/Dice3.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT));
+		dice_pictures[4] = new ImageIcon(new ImageIcon("pictures/pictures/dice/Dice4.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT));
+		dice_pictures[5] = new ImageIcon(new ImageIcon("pictures/pictures/dice/Dice5.png").getImage().getScaledInstance(50,50, Image.SCALE_DEFAULT));
+		i_frame.getContentPane().setLayout(new FlowLayout(FlowLayout.CENTER)); 
+		
+		i_frame.setSize(470, 300);
+                i_frame.getContentPane().setBackground(new Color(0,155,100));
+                i_frame.setVisible(true);
+                i_frame.setResizable(false);
+                i_frame.setTitle("Beetle Game Instructions");
 
+		JLabel dice_label_0 = new JLabel();
+		JLabel dice_label_1 = new JLabel();
+		JLabel dice_label_2 = new JLabel();
+		JLabel dice_label_3 = new JLabel();
+		JLabel dice_label_4 = new JLabel();
+		JLabel dice_label_5 = new JLabel();
+		JLabel dice_label_6 = new JLabel();
+		dice_label_0.setIcon(dice_pictures[0]);
+		dice_label_1.setIcon(dice_pictures[1]);
+		dice_label_2.setIcon(dice_pictures[2]);
+		dice_label_3.setIcon(dice_pictures[3]);
+		dice_label_4.setIcon(dice_pictures[4]);
+		dice_label_5.setIcon(dice_pictures[5]);
+		dice_label_6.setIcon(dice_pictures[6]);
+		
+		i_frame.getContentPane().add(dice_label_0);
+		i_frame.getContentPane().add(dice_label_1);
+		i_frame.getContentPane().add(dice_label_2);
+		i_frame.getContentPane().add(dice_label_3);
+		i_frame.getContentPane().add(dice_label_4);
+		i_frame.getContentPane().add(dice_label_5);
+		i_frame.getContentPane().add(dice_label_6);
+		dice_label_0.setVisible(true);
+		dice_label_1.setVisible(true);
+		dice_label_2.setVisible(true);
+		dice_label_3.setVisible(true);
+		dice_label_4.setVisible(true);
+		dice_label_5.setVisible(true);
+		dice_label_6.setVisible(true);
+		JLabel info1 = new JLabel();
+
+		String infoStr = "     ";
+		for (int i = 0; i < 6; i++)
+		    infoStr +=  game.p1.getPartName(i) + "      ";
+		info1.setText(infoStr);
+		i_frame.getContentPane().add(info1);
+		
+		JTextArea textArea = new JTextArea(
+		    "\n\nWelcome to the Beetle Game!\n\n" + 
+		    "-To play, click \"roll\", the number you get will correspond to the above\n " +
+		    "insect body parts.\n-You first must obtain a \"body\" in order to add other\n " +
+		    "body parts such as legs, eyes...\n-Once you've obtained a body, your goal is " + 
+		    "to collect \nall of the insect's body parts before your opponent! Good luck!!\n\n\n\n\n"
+                );
+		Font font1 = new Font("Verdana", Font.BOLD, 12);  
+		textArea.setFont(font1);
+		textArea.setForeground(Color.BLACK);
+		//textArea.setBackground(new Color(0,155,100));
+                textArea.setEnabled(false);
+		i_frame.getContentPane().add(textArea);
+	    }); 
+		
 	
         roll.setAlignmentX(Component.CENTER_ALIGNMENT);
 	home.setAlignmentX(Component.CENTER_ALIGNMENT);
 	exit.setAlignmentX(Component.CENTER_ALIGNMENT);
-        info.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //picLabel0.setAlignmentX(Component.CENTER_ALIGNMENT);     //align the image for the game
-
-        String infoStr = "";
-        for (int i = 0; i < 6; i++)
-            infoStr += Integer.toString(i + 1) + "[" + game.p1.getPartName(i) + "] ";
-        info.setText(infoStr);
+        instructions.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         controlPanel.add(roll);
 	controlPanel.add(home);
-        controlPanel.add(exit);
-        controlPanel.add(info);
-        //controlPanel.add(picLabel);         //add the image for the game
-	
+        controlPanel.add(instructions);
+	controlPanel.add(exit);
+        
 	GridBagLayout layout  = new GridBagLayout();
 	JPanel panel = new JPanel(layout);
 	GridBagConstraints c = new GridBagConstraints();
 
 	frame.getContentPane().add(panel);
-	//	frame.getContentPane().setLayout(new GridBagLayout());
 	
 	//adding p1 panel with constraints to 0,0 of gridlayout
 	c.fill = GridBagConstraints.BOTH;
@@ -535,7 +600,7 @@ public class GuiBased {
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                 null, options, options[0]
         );
-
+       
         frame.setVisible(false);
 
         if (isContinue == 1) {
@@ -545,8 +610,8 @@ public class GuiBased {
             Object[] choices = {"Ant", "Beetle", "Ladybug", "Person"};
             int option = JOptionPane.showOptionDialog(
                     frame, "Enter a new game mode.", "Enter a new game mode",
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]);
-            game.setGameType(option);
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE, null, choices, choices[0]); 
+	    game.setGameType(option);
             mainFrame();
         }
     }
